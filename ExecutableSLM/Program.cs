@@ -1,36 +1,46 @@
-﻿using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
+﻿using Microsoft.ML.OnnxRuntimeGenAI;
+
 
 var modelPath = @"C:\Users\frede\source\repos\MLClassificationDemo\ExecutableSLM\model\";
+var model = new Model(modelPath);
+var tokenizer = new Tokenizer(model);
 
-// create kernel
-var builder = Kernel.CreateBuilder();
-builder.AddOnnxRuntimeGenAIChatCompletion(modelPath: modelPath);
-var kernel = builder.Build();
+var systemPrompt = "You are an AI assistant that helps people find information. Answer questions using a direct style. Do not share more information than the requested by the users.";
 
-// create chat
-var chat = kernel.GetRequiredService<IChatCompletionService>();
-var history = new ChatHistory();
+// chat start
+Console.WriteLine(@"Ask your question. Type an empty string to Exit.");
 
-// run chat
+// chat loop
 while (true)
 {
-    Console.Write("Q: ");
+    // Get user question
+    Console.WriteLine();
+    Console.Write(@"Q: ");
     var userQ = Console.ReadLine();
     if (string.IsNullOrEmpty(userQ))
     {
         break;
     }
-    history.AddUserMessage(userQ);
 
-    Console.Write($"Phi3: ");
-    var response = "";
-    var result = chat.GetStreamingChatMessageContentsAsync(history);
-    await foreach (var message in result)
+    // show phi3 response
+    Console.Write("Phi3: ");
+    var fullPrompt = $"<|system|>{systemPrompt}<|end|><|user|>{userQ}<|end|><|assistant|>";
+    var tokens = tokenizer.Encode(fullPrompt);
+
+    var generatorParams = new GeneratorParams(model);
+    generatorParams.SetSearchOption("max_length", 2048);
+    generatorParams.SetSearchOption("past_present_share_buffer", false);
+    generatorParams.SetInputSequences(tokens);
+
+    var generator = new Generator(model, generatorParams);
+    while (!generator.IsDone())
     {
-        Console.Write(message.Content);
-        response += message.Content;
+        generator.ComputeLogits();
+        generator.GenerateNextToken();
+        var outputTokens = generator.GetSequence(0);
+        var newToken = outputTokens.Slice(outputTokens.Length - 1, 1);
+        var output = tokenizer.Decode(newToken);
+        Console.Write(output);
     }
-    history.AddAssistantMessage(response);
-    Console.WriteLine("");
+    Console.WriteLine();
 }
