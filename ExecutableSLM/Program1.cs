@@ -5,7 +5,7 @@ var modelPath = @"C:\Users\frede\source\repos\MLClassificationDemo\ExecutableSLM
 var model = new Model(modelPath);
 var tokenizer = new Tokenizer(model);
 
-var systemPrompt = "You are an AI assistant that helps people find information. Answer questions using a direct style. Do not share more information that the requested by the users.";
+var systemPrompt = "You are an AI assistant that helps people find information. Answer questions using a direct style. Do not share more information than the requested by the users.";
 
 // chat start
 Console.WriteLine(@"Ask your question. Type an empty string to Exit.");
