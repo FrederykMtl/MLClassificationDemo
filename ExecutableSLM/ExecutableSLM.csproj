@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="model\.vs\**" />
+    <EmbeddedResource Remove="model\.vs\**" />
+    <None Remove="model\.vs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Program1.cs" />
+    <Compile Remove="Program2.cs" />
   </ItemGroup>
 
   <ItemGroup>

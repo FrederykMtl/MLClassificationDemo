@@ -361,23 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/ExecutableSLM/model/added_tokens.json
-/ExecutableSLM/model/config.json
-/ExecutableSLM/model/configuration_phi3.py
-/ExecutableSLM/model/genai_config.json
-/ExecutableSLM/model/phi3-mini-4k-instruct-cpu-int4-rtn-block-32.onnx
-/ExecutableSLM/model/phi3-mini-4k-instruct-cpu-int4-rtn-block-32.onnx.data
-/ExecutableSLM/model/special_tokens_map.json
-/ExecutableSLM/model/tokenizer.json
-/ExecutableSLM/model/tokenizer.model
-/ExecutableSLM/model/tokenizer_config.json
-/ExecutableSLM/model/added_tokens.json
-/ExecutableSLM/model/config.json
-/ExecutableSLM/model/configuration_phi3.py
-/ExecutableSLM/model/genai_config.json
-/ExecutableSLM/model/phi3-mini-4k-instruct-cpu-int4-rtn-block-32.onnx
-/ExecutableSLM/model/phi3-mini-4k-instruct-cpu-int4-rtn-block-32.onnx.data
-/ExecutableSLM/model/special_tokens_map.json
-/ExecutableSLM/model/tokenizer.json
-/ExecutableSLM/model/tokenizer.model
-/ExecutableSLM/model/tokenizer_config.json
